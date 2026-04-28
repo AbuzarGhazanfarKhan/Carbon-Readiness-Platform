@@ -68,6 +68,11 @@ type FactorSet = {
 };
 
 type ScenarioPresetLabel = "Conservative" | "Balanced" | "Stretch";
+type ScenarioPresetSelection = ScenarioPresetLabel | "Custom";
+type DemoFarmPresetId =
+  | "cropland-transition"
+  | "grazing-methane"
+  | "agroforestry-removals";
 
 type ScenarioControlConfig = {
   label: string;
@@ -200,6 +205,31 @@ type StepDefinition = {
   title: string;
   description: string;
   icon: LucideIcon;
+};
+
+type DemoFarmPreset = {
+  id: DemoFarmPresetId;
+  label: string;
+  description: string;
+  demoFocus: string;
+  farm: FarmProfile;
+  commercial: CommercialScenario;
+  fields: FieldRecord[];
+  readinessItems: ReadinessItem[];
+  packetDocuments: EvidenceDocument[];
+  scenarioPresetLabel: ScenarioPresetLabel;
+};
+
+type DemoPresetState = {
+  farm: FarmProfile;
+  commercial: CommercialScenario;
+  fields: FieldRecord[];
+  scenario: ScenarioState;
+  scenarioPresetLabel: ScenarioPresetSelection;
+  readinessItems: ReadinessItem[];
+  packetDocuments: EvidenceDocument[];
+  activeFieldId: number;
+  activePacketDocumentId: number;
 };
 
 const regionConfigs: RegionConfig[] = [
@@ -435,6 +465,13 @@ const methodologyPacks: MethodologyPack[] = [
   },
 ];
 
+function getMethodologyPack(methodologyId: string) {
+  return (
+    methodologyPacks.find((option) => option.id === methodologyId) ??
+    methodologyPacks[0]
+  );
+}
+
 const landControlOptions: Array<{
   value: LandControlStatus;
   label: string;
@@ -553,6 +590,31 @@ const practiceOptions: Array<{ value: Practice; label: string }> = [
   { value: "reduced", label: "Reduced tillage" },
   { value: "no-till", label: "No-till" },
 ];
+
+const initialFarmProfile: FarmProfile = {
+  farmName: "Punjab Rotation Pilot",
+  regionId: "south-asia",
+  methodologyId: "cropland-soil",
+  landControlStatus: "owned",
+  baselineYears: 3,
+  permanenceYears: 20,
+  droughtRiskLevel: "moderate",
+  floodRiskLevel: "low",
+  fireRiskLevel: "low",
+  regulatorySurplusStatus: "review",
+  commonPracticeStatus: "review",
+  barrierStatus: "review",
+  adoptionTimingStatus: "review",
+  doubleCountStatus: "clear",
+};
+
+const initialCommercialScenario: CommercialScenario = {
+  pricePerCredit: 18,
+  registryCost: 22,
+  verificationCost: 60,
+  platformFee: 24,
+  developerSharePct: 12,
+};
 
 const initialFields: FieldRecord[] = [
   {
@@ -801,6 +863,490 @@ const initialPacketDocuments: EvidenceDocument[] = [
   },
 ];
 
+const grazingDemoFarmProfile: FarmProfile = {
+  farmName: "Atlas Rangeland Methane Pilot",
+  regionId: "mena",
+  methodologyId: "grazing-methane",
+  landControlStatus: "aggregator-mandate",
+  baselineYears: 4,
+  permanenceYears: 15,
+  droughtRiskLevel: "high",
+  floodRiskLevel: "low",
+  fireRiskLevel: "moderate",
+  regulatorySurplusStatus: "clear",
+  commonPracticeStatus: "review",
+  barrierStatus: "clear",
+  adoptionTimingStatus: "clear",
+  doubleCountStatus: "clear",
+};
+
+const grazingDemoCommercialScenario: CommercialScenario = {
+  pricePerCredit: 16,
+  registryCost: 28,
+  verificationCost: 72,
+  platformFee: 22,
+  developerSharePct: 15,
+};
+
+const grazingDemoFields: FieldRecord[] = [
+  {
+    id: 1,
+    name: "North Grazing Cell",
+    areaHa: 260,
+    cropType: "Native pasture",
+    soilType: "Calcareous loam",
+    nitrogenKgPerHa: 12,
+    dieselLitersPerHa: 8,
+    electricityKwhPerHa: 6,
+    livestockHead: 140,
+    baselinePractice: "conventional",
+    projectPractice: "reduced",
+    baselineRemovalRate: 0.015,
+    coverCropPlanned: false,
+    agroforestryHa: 0,
+    boundaryStatus: "mapped",
+    boundaryMethod: "Satellite trace",
+    geometryConfidencePct: 88,
+    samplingCoveragePct: 64,
+    adjacencyRiskPct: 24,
+    excludedAreaHa: 9,
+    exclusionReason: "Road / access",
+    waterSource: "Bore well",
+    boundaryNotes:
+      "Main grazing cell is traced and fenced, with one service access strip excluded from the claim area.",
+  },
+  {
+    id: 2,
+    name: "Feed Corridor",
+    areaHa: 110,
+    cropType: "Fodder barley",
+    soilType: "Sandy loam",
+    nitrogenKgPerHa: 24,
+    dieselLitersPerHa: 11,
+    electricityKwhPerHa: 14,
+    livestockHead: 96,
+    baselinePractice: "conventional",
+    projectPractice: "reduced",
+    baselineRemovalRate: 0.012,
+    coverCropPlanned: false,
+    agroforestryHa: 2,
+    boundaryStatus: "review",
+    boundaryMethod: "Survey upload",
+    geometryConfidencePct: 71,
+    samplingCoveragePct: 55,
+    adjacencyRiskPct: 33,
+    excludedAreaHa: 7,
+    exclusionReason: "Habitation / structure",
+    waterSource: "Piped trough",
+    boundaryNotes:
+      "Survey geometry exists, but the handling yard and shade structure still need a clean exclusion trace.",
+  },
+  {
+    id: 3,
+    name: "Winter Holding",
+    areaHa: 84,
+    cropType: "Stubble pasture",
+    soilType: "Clay loam",
+    nitrogenKgPerHa: 9,
+    dieselLitersPerHa: 7,
+    electricityKwhPerHa: 4,
+    livestockHead: 128,
+    baselinePractice: "reduced",
+    projectPractice: "reduced",
+    baselineRemovalRate: 0.01,
+    coverCropPlanned: false,
+    agroforestryHa: 0,
+    boundaryStatus: "mapped",
+    boundaryMethod: "Survey upload",
+    geometryConfidencePct: 83,
+    samplingCoveragePct: 61,
+    adjacencyRiskPct: 29,
+    excludedAreaHa: 4,
+    exclusionReason: "Canal or drainage edge",
+    waterSource: "Rain pond",
+    boundaryNotes:
+      "Holding block is mapped and tied to the water point, with a narrow drainage edge removed from the eligible area.",
+  },
+];
+
+const grazingDemoReadiness: ReadinessItem[] = [
+  {
+    key: "boundaries",
+    label: "Grazing boundaries",
+    note: "Mapped paddocks, fenced cells, and excluded handling areas.",
+    weight: 20,
+    complete: true,
+  },
+  {
+    key: "baseline-history",
+    label: "Herd and baseline records",
+    note: "Historic herd class, feed regime, and manure handling records.",
+    weight: 20,
+    complete: true,
+  },
+  {
+    key: "activity-logs",
+    label: "Grazing and movement logs",
+    note: "Cell rotation, feed changes, and handling day records.",
+    weight: 20,
+    complete: true,
+  },
+  {
+    key: "invoices",
+    label: "Feed and operating invoices",
+    note: "Purchased feed, contractor, and fuel records.",
+    weight: 15,
+    complete: true,
+  },
+  {
+    key: "soil-tests",
+    label: "Manure and forage tests",
+    note: "Supporting sample data for methane and feed assumptions.",
+    weight: 15,
+    complete: false,
+  },
+  {
+    key: "review-path",
+    label: "Verifier review path",
+    note: "Named methane pathway advisor and reviewer workflow.",
+    weight: 10,
+    complete: true,
+  },
+];
+
+const grazingDemoPacketDocuments: EvidenceDocument[] = [
+  {
+    id: 1,
+    title: "Grazing cell boundary pack",
+    category: "Boundary",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "GIS desk",
+    status: "ready",
+    note: "Paddock boundaries and excluded handling areas are reconciled to the current grazing map.",
+    readinessKey: "boundaries",
+  },
+  {
+    id: 2,
+    title: "Herd inventory and feed ledger",
+    category: "Baseline",
+    linkedFieldId: null,
+    season: "2022-2025",
+    owner: "Ranch office",
+    status: "ready",
+    note: "Historic herd class and feed regime records are normalized for the methane baseline.",
+    readinessKey: "baseline-history",
+  },
+  {
+    id: 3,
+    title: "Rotational grazing log bundle",
+    category: "Operations",
+    linkedFieldId: 1,
+    season: "Current season",
+    owner: "Operations lead",
+    status: "review",
+    note: "Movement logs are present, but two grazing intervals still need date confirmation.",
+    readinessKey: "activity-logs",
+  },
+  {
+    id: 4,
+    title: "Feed and veterinary invoice pack",
+    category: "Commercial",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "Finance",
+    status: "ready",
+    note: "Feed purchases and veterinary invoices are attached for cost and activity cross-checks.",
+    readinessKey: "invoices",
+  },
+  {
+    id: 5,
+    title: "Manure and forage sample packet",
+    category: "Soil",
+    linkedFieldId: 2,
+    season: "Spring 2026",
+    owner: "Lab partner",
+    status: "missing",
+    note: "Feed-quality and manure sample evidence is still missing for one methane adjustment assumption.",
+    readinessKey: "soil-tests",
+  },
+  {
+    id: 6,
+    title: "Methane pathway review memo",
+    category: "Review",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "Advisory lead",
+    status: "ready",
+    note: "Reviewer path, pack references, and methodology notes are already assembled.",
+    readinessKey: "review-path",
+  },
+];
+
+const agroforestryDemoFarmProfile: FarmProfile = {
+  farmName: "Danube Shelterbelt Estate",
+  regionId: "eu-lower-carbon",
+  methodologyId: "agroforestry-removals",
+  landControlStatus: "owned",
+  baselineYears: 5,
+  permanenceYears: 30,
+  droughtRiskLevel: "low",
+  floodRiskLevel: "moderate",
+  fireRiskLevel: "moderate",
+  regulatorySurplusStatus: "clear",
+  commonPracticeStatus: "clear",
+  barrierStatus: "review",
+  adoptionTimingStatus: "clear",
+  doubleCountStatus: "clear",
+};
+
+const agroforestryDemoCommercialScenario: CommercialScenario = {
+  pricePerCredit: 24,
+  registryCost: 30,
+  verificationCost: 88,
+  platformFee: 26,
+  developerSharePct: 10,
+};
+
+const agroforestryDemoFields: FieldRecord[] = [
+  {
+    id: 1,
+    name: "Shelterbelt Corridor",
+    areaHa: 95,
+    cropType: "Wheat interrow",
+    soilType: "Silt loam",
+    nitrogenKgPerHa: 28,
+    dieselLitersPerHa: 10,
+    electricityKwhPerHa: 18,
+    livestockHead: 0,
+    baselinePractice: "reduced",
+    projectPractice: "no-till",
+    baselineRemovalRate: 0.05,
+    coverCropPlanned: true,
+    agroforestryHa: 24,
+    boundaryStatus: "mapped",
+    boundaryMethod: "Satellite trace",
+    geometryConfidencePct: 93,
+    samplingCoveragePct: 72,
+    adjacencyRiskPct: 16,
+    excludedAreaHa: 3,
+    exclusionReason: "Road / access",
+    waterSource: "Canal supplement",
+    boundaryNotes:
+      "Shelterbelt parcels are traced and aligned to the planting layout with only a small access strip excluded.",
+  },
+  {
+    id: 2,
+    name: "Riparian Alley",
+    areaHa: 68,
+    cropType: "Mixed pulses",
+    soilType: "Alluvial loam",
+    nitrogenKgPerHa: 20,
+    dieselLitersPerHa: 9,
+    electricityKwhPerHa: 16,
+    livestockHead: 0,
+    baselinePractice: "reduced",
+    projectPractice: "reduced",
+    baselineRemovalRate: 0.06,
+    coverCropPlanned: true,
+    agroforestryHa: 32,
+    boundaryStatus: "review",
+    boundaryMethod: "Survey upload",
+    geometryConfidencePct: 77,
+    samplingCoveragePct: 59,
+    adjacencyRiskPct: 35,
+    excludedAreaHa: 8,
+    exclusionReason: "Riparian buffer",
+    waterSource: "River lift",
+    boundaryNotes:
+      "Planting corridor is surveyed, but the protected riparian edge still needs a final exclusion polygon.",
+  },
+  {
+    id: 3,
+    name: "South Row Crop Block",
+    areaHa: 124,
+    cropType: "Sunflower",
+    soilType: "Clay loam",
+    nitrogenKgPerHa: 34,
+    dieselLitersPerHa: 12,
+    electricityKwhPerHa: 21,
+    livestockHead: 0,
+    baselinePractice: "conventional",
+    projectPractice: "reduced",
+    baselineRemovalRate: 0.03,
+    coverCropPlanned: true,
+    agroforestryHa: 18,
+    boundaryStatus: "mapped",
+    boundaryMethod: "Survey upload",
+    geometryConfidencePct: 89,
+    samplingCoveragePct: 67,
+    adjacencyRiskPct: 22,
+    excludedAreaHa: 6,
+    exclusionReason: "Road / access",
+    waterSource: "Canal turnout",
+    boundaryNotes:
+      "Row-crop transition block is reconciled to the shelterbelt plan and current road setback rules.",
+  },
+];
+
+const agroforestryDemoReadiness: ReadinessItem[] = [
+  {
+    key: "boundaries",
+    label: "Planting boundaries",
+    note: "Mapped planting corridors, exclusions, and tree-establishment parcels.",
+    weight: 20,
+    complete: true,
+  },
+  {
+    key: "baseline-history",
+    label: "Land-use baseline",
+    note: "Historic land use, prior tree cover, and parcel management records.",
+    weight: 20,
+    complete: true,
+  },
+  {
+    key: "activity-logs",
+    label: "Planting and maintenance logs",
+    note: "Tree establishment, watering, replacement, and maintenance records.",
+    weight: 20,
+    complete: false,
+  },
+  {
+    key: "invoices",
+    label: "Nursery and contractor invoices",
+    note: "Sapling orders, contractor works, and irrigation setup records.",
+    weight: 15,
+    complete: true,
+  },
+  {
+    key: "soil-tests",
+    label: "Biomass and soil benchmarks",
+    note: "Benchmark measurements for early removals and long-term monitoring.",
+    weight: 15,
+    complete: false,
+  },
+  {
+    key: "review-path",
+    label: "Verifier review path",
+    note: "Named removals reviewer and monitoring-plan workflow.",
+    weight: 10,
+    complete: true,
+  },
+];
+
+const agroforestryDemoPacketDocuments: EvidenceDocument[] = [
+  {
+    id: 1,
+    title: "Planting boundary and exclusion pack",
+    category: "Boundary",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "GIS desk",
+    status: "ready",
+    note: "Planting corridors and non-claim riparian edges are reconciled to the parcel register.",
+    readinessKey: "boundaries",
+  },
+  {
+    id: 2,
+    title: "Land-use baseline memo",
+    category: "Baseline",
+    linkedFieldId: null,
+    season: "2020-2025",
+    owner: "Estate office",
+    status: "ready",
+    note: "Historic field use and prior woody cover review are attached for the removals baseline.",
+    readinessKey: "baseline-history",
+  },
+  {
+    id: 3,
+    title: "Planting and maintenance log bundle",
+    category: "Operations",
+    linkedFieldId: 1,
+    season: "Current season",
+    owner: "Field supervisor",
+    status: "review",
+    note: "Establishment logs are linked, but one replacement-planting record still needs a signed site sheet.",
+    readinessKey: "activity-logs",
+  },
+  {
+    id: 4,
+    title: "Nursery and contractor invoice pack",
+    category: "Commercial",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "Finance",
+    status: "ready",
+    note: "Sapling, contractor, and irrigation invoices are attached for audit support.",
+    readinessKey: "invoices",
+  },
+  {
+    id: 5,
+    title: "Biomass monitoring benchmark",
+    category: "Soil",
+    linkedFieldId: 2,
+    season: "Spring 2026",
+    owner: "Monitoring partner",
+    status: "missing",
+    note: "Initial biomass benchmark sheets are still pending for the riparian alley block.",
+    readinessKey: "soil-tests",
+  },
+  {
+    id: 6,
+    title: "Removals pathway review memo",
+    category: "Review",
+    linkedFieldId: null,
+    season: "Current season",
+    owner: "Advisory lead",
+    status: "ready",
+    note: "Reviewer handoff notes and permanence assumptions are assembled for the removals pathway.",
+    readinessKey: "review-path",
+  },
+];
+
+const demoFarmPresets: DemoFarmPreset[] = [
+  {
+    id: "cropland-transition",
+    label: "Cropland transition pilot",
+    description:
+      "A mixed cropland story focused on nitrogen, tillage, and parcel exclusions across three field types.",
+    demoFocus: "Practice change and parcel screening",
+    farm: initialFarmProfile,
+    commercial: initialCommercialScenario,
+    fields: initialFields,
+    readinessItems: initialReadiness,
+    packetDocuments: initialPacketDocuments,
+    scenarioPresetLabel: "Balanced",
+  },
+  {
+    id: "grazing-methane",
+    label: "Grazing methane pilot",
+    description:
+      "A livestock-heavy story that shifts attention toward herd records, grazing logs, and methane-specific evidence gaps.",
+    demoFocus: "Herd data, methane reductions, and grazing records",
+    farm: grazingDemoFarmProfile,
+    commercial: grazingDemoCommercialScenario,
+    fields: grazingDemoFields,
+    readinessItems: grazingDemoReadiness,
+    packetDocuments: grazingDemoPacketDocuments,
+    scenarioPresetLabel: "Balanced",
+  },
+  {
+    id: "agroforestry-removals",
+    label: "Agroforestry removals estate",
+    description:
+      "A removals-oriented story that highlights permanence, boundary exclusions, and monitoring-plan blockers.",
+    demoFocus: "Tree establishment, permanence, and monitoring readiness",
+    farm: agroforestryDemoFarmProfile,
+    commercial: agroforestryDemoCommercialScenario,
+    fields: agroforestryDemoFields,
+    readinessItems: agroforestryDemoReadiness,
+    packetDocuments: agroforestryDemoPacketDocuments,
+    scenarioPresetLabel: "Conservative",
+  },
+];
+
+const defaultDemoPreset = demoFarmPresets[0];
+
 const stepDefinitions: StepDefinition[] = [
   {
     id: "farm",
@@ -1014,6 +1560,24 @@ function formatUsd(value: number) {
   return `${value < 0 ? "-" : ""}$${absolute.toFixed(0)}`;
 }
 
+function buildDemoPresetState(preset: DemoFarmPreset): DemoPresetState {
+  const methodology = getMethodologyPack(preset.farm.methodologyId);
+
+  return {
+    farm: { ...preset.farm },
+    commercial: { ...preset.commercial },
+    fields: preset.fields.map((field) => ({ ...field })),
+    scenario: { ...methodology.scenarioPresets[preset.scenarioPresetLabel] },
+    scenarioPresetLabel: preset.scenarioPresetLabel,
+    readinessItems: preset.readinessItems.map((item) => ({ ...item })),
+    packetDocuments: preset.packetDocuments.map((document) => ({ ...document })),
+    activeFieldId: preset.fields[0]?.id ?? 0,
+    activePacketDocumentId: preset.packetDocuments[0]?.id ?? 0,
+  };
+}
+
+const initialDemoState = buildDemoPresetState(defaultDemoPreset);
+
 export function ReadinessWorkbench() {
   const packetStatusScore: Record<PacketStatus, number> = {
     ready: 1,
@@ -1026,50 +1590,44 @@ export function ReadinessWorkbench() {
     missing: 0,
   };
 
-  const [farm, setFarm] = useState<FarmProfile>({
-    farmName: "TerraYield Demo Farm",
-    regionId: "south-asia",
-    methodologyId: "cropland-soil",
-    landControlStatus: "owned",
-    baselineYears: 3,
-    permanenceYears: 20,
-    droughtRiskLevel: "moderate",
-    floodRiskLevel: "low",
-    fireRiskLevel: "low",
-    regulatorySurplusStatus: "review",
-    commonPracticeStatus: "review",
-    barrierStatus: "review",
-    adoptionTimingStatus: "review",
-    doubleCountStatus: "clear",
-  });
-  const [commercial, setCommercial] = useState<CommercialScenario>({
-    pricePerCredit: 18,
-    registryCost: 22,
-    verificationCost: 60,
-    platformFee: 24,
-    developerSharePct: 12,
-  });
-  const [fields, setFields] = useState<FieldRecord[]>(initialFields);
-  const [scenario, setScenario] = useState<ScenarioState>(
-    methodologyPacks[0].scenarioPresets.Balanced,
+  const [demoPresetId, setDemoPresetId] = useState<DemoFarmPresetId>(
+    defaultDemoPreset.id,
   );
-  const [scenarioPresetLabel, setScenarioPresetLabel] = useState("Balanced");
-  const [readinessItems, setReadinessItems] =
-    useState<ReadinessItem[]>(initialReadiness);
-  const [packetDocuments, setPacketDocuments] =
-    useState<EvidenceDocument[]>(initialPacketDocuments);
+  const [farm, setFarm] = useState<FarmProfile>(initialDemoState.farm);
+  const [commercial, setCommercial] = useState<CommercialScenario>(
+    initialDemoState.commercial,
+  );
+  const [fields, setFields] = useState<FieldRecord[]>(initialDemoState.fields);
+  const [scenario, setScenario] = useState<ScenarioState>(
+    initialDemoState.scenario,
+  );
+  const [scenarioPresetLabel, setScenarioPresetLabel] =
+    useState<ScenarioPresetSelection>(initialDemoState.scenarioPresetLabel);
+  const [readinessItems, setReadinessItems] = useState<ReadinessItem[]>(
+    initialDemoState.readinessItems,
+  );
+  const [packetDocuments, setPacketDocuments] = useState<EvidenceDocument[]>(
+    initialDemoState.packetDocuments,
+  );
   const [activeStepIndex, setActiveStepIndex] = useState(0);
-  const [activeFieldId, setActiveFieldId] = useState(initialFields[0]?.id ?? 0);
+  const [activeFieldId, setActiveFieldId] = useState(
+    initialDemoState.activeFieldId,
+  );
   const [activePacketDocumentId, setActivePacketDocumentId] = useState(
-    initialPacketDocuments[0]?.id ?? 0,
+    initialDemoState.activePacketDocumentId,
+  );
+
+  const selectedDemoPreset =
+    demoFarmPresets.find((preset) => preset.id === demoPresetId) ??
+    defaultDemoPreset;
+  const selectedDemoMethodology = getMethodologyPack(
+    selectedDemoPreset.farm.methodologyId,
   );
 
   const region =
     regionConfigs.find((option) => option.id === farm.regionId) ??
     regionConfigs[0];
-  const methodology =
-    methodologyPacks.find((option) => option.id === farm.methodologyId) ??
-    methodologyPacks[0];
+  const methodology = getMethodologyPack(farm.methodologyId);
   const factorSet = methodology.factorSet;
 
   const fieldResults = fields.map((field) =>
@@ -1628,6 +2186,24 @@ export function ReadinessWorkbench() {
     setScenario((current) => ({ ...current, [key]: value }));
   }
 
+  function applyDemoPreset(presetId: DemoFarmPresetId) {
+    const preset =
+      demoFarmPresets.find((option) => option.id === presetId) ??
+      defaultDemoPreset;
+    const nextState = buildDemoPresetState(preset);
+
+    setDemoPresetId(preset.id);
+    setFarm(nextState.farm);
+    setCommercial(nextState.commercial);
+    setFields(nextState.fields);
+    setScenario(nextState.scenario);
+    setScenarioPresetLabel(nextState.scenarioPresetLabel);
+    setReadinessItems(nextState.readinessItems);
+    setPacketDocuments(nextState.packetDocuments);
+    setActiveFieldId(nextState.activeFieldId);
+    setActivePacketDocumentId(nextState.activePacketDocumentId);
+  }
+
   function moveStep(direction: "next" | "back") {
     setActiveStepIndex((current) => {
       if (direction === "next") {
@@ -1642,7 +2218,63 @@ export function ReadinessWorkbench() {
     return (
       <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
         <div className="workbench-subpanel rounded-[1.7rem] p-5 sm:p-6">
-          <p className="text-xs uppercase tracking-[0.24em] text-[#95edff]">
+          <div className="rounded-[1.4rem] border border-white/10 bg-[rgba(255,255,255,0.03)] p-4">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <p className="text-xs uppercase tracking-[0.24em] text-[#f2c77f]">
+                  Live demo presets
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[#a8bcc6]">
+                  Load a prepared farm story, including methodology, fields,
+                  packet desk, readiness controls, and opening scenario.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => applyDemoPreset(demoPresetId)}
+                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-[rgba(255,255,255,0.04)] px-4 py-2 text-sm text-[#edf3ef] transition-transform duration-300 hover:-translate-y-0.5"
+              >
+                Reload preset
+              </button>
+            </div>
+
+            <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+              <label className="workbench-field">
+                <span className="workbench-label">Demo story</span>
+                <select
+                  value={demoPresetId}
+                  onChange={(event) =>
+                    applyDemoPreset(event.target.value as DemoFarmPresetId)
+                  }
+                  className="workbench-input"
+                >
+                  {demoFarmPresets.map((preset) => (
+                    <option key={preset.id} value={preset.id}>
+                      {preset.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <div className="workbench-summary-card">
+                <p className="workbench-label">Preset focus</p>
+                <p className="mt-3 font-display text-[1.85rem] leading-[1.02] text-white">
+                  {selectedDemoPreset.demoFocus}
+                </p>
+                <p className="mt-3 text-sm leading-6 text-[#a8bcc6]">
+                  {selectedDemoMethodology.registryLabel} · starts on the{" "}
+                  {selectedDemoPreset.scenarioPresetLabel} scenario preset.
+                </p>
+              </div>
+            </div>
+
+            <p className="mt-4 text-sm leading-6 text-[#dce7e3]">
+              {selectedDemoPreset.description}
+            </p>
+          </div>
+
+          <p className="mt-6 text-xs uppercase tracking-[0.24em] text-[#95edff]">
             Core profile
           </p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -3775,12 +4407,16 @@ export function ReadinessWorkbench() {
       <div className="mb-8 rounded-[2.3rem] border border-white/10 bg-[linear-gradient(180deg,rgba(8,14,21,0.94)_0%,rgba(4,8,14,0.88)_100%)] p-7 text-[#ebf0ec] shadow-[0_28px_70px_rgba(0,0,0,0.28)] sm:p-9">
         <div className="grid gap-6 2xl:grid-cols-[1.08fr_0.92fr] 2xl:items-end">
           <div>
-            <p className="section-label text-[#7ce5d8]">Assessment flow</p>
+            <p className="section-label text-[#7ce5d8]">Live assessment</p>
             <h2 className="mt-4 max-w-4xl font-display text-[3.6rem] leading-[0.92] text-white sm:text-[4rem] xl:text-[4.25rem] 2xl:text-5xl">
-              Proper sections. Real sequence. One working step at a time.
+              Move from farm context to indicative carbon readiness in seven
+              steps.
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#c7d6d2]">
-              The assessment is now split into a clean seven-step flow so farm setup, field editing, field mapping, scenario tuning, evidence review, modeled results, and packet assembly stop crashing into each other.
+              The flow starts with operator and parcel context, then moves
+              through mapping, scenario modeling, deductions, results, and
+              evidence packet review so the demo reads like one coherent
+              product.
             </p>
           </div>
 
@@ -3790,11 +4426,11 @@ export function ReadinessWorkbench() {
               <p className="mt-3 font-display text-4xl text-white">{activeStep.step}</p>
             </div>
             <div className="rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-5">
-              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#95edff]">Indicative qty</p>
+              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#95edff]">Indicative credits</p>
               <p className="mt-3 font-display text-4xl text-white">{estimatedCredits.toFixed(1)}</p>
             </div>
             <div className="rounded-[1.5rem] border border-white/10 bg-[rgba(255,255,255,0.04)] p-5">
-              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#95edff]">Readiness</p>
+              <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#95edff]">Readiness score</p>
               <p className="mt-3 font-display text-4xl text-white">{readinessScore}%</p>
             </div>
           </div>
