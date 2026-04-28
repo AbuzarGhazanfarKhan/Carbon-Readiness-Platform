@@ -1,246 +1,354 @@
-# Farm Carbon Credit Mock Website Plan
+# Farm Carbon Readiness Platform Plan
 
-## 1. Goal
+## 1. Objective
 
-Create a mock website that explains and simulates how a farm carbon credit platform could work.
+Create a methodology-aware product prototype that mirrors how a real agricultural carbon project moves from farm intake to quantified benefit, MRV preparation, and commercial screening.
 
-This prototype should not pretend to issue real carbon credits. It should act as a:
+This product should help a farmer, advisor, or project developer answer five real-world questions:
 
-- farm carbon footprint estimator
-- project readiness checker
-- carbon credit potential simulator
-- simple MRV workflow demo
+1. Is this farm or parcel even eligible for a carbon project?
+2. What is the credible baseline for emissions and removals?
+3. What quantified change could a project scenario create?
+4. What deductions, uncertainty, and buffer rules reduce that quantity before any issuance claim?
+5. What records, spatial evidence, and verification work are still missing?
 
-The website should help a farmer answer four questions:
+The platform should be built as a carbon readiness and pre-feasibility system, not as a registry, broker, or verifier.
 
-1. What does my farm emit today?
-2. What could change if I adopt better practices?
-3. How many potential credits might I generate?
-4. What evidence and verification would I still need before credits could be sold?
+## 2. Non-Negotiable Accuracy Boundaries
 
-## 2. Product Positioning
+The product should be as close to real-world practice as possible without making false claims.
 
-The mock website should be positioned as a farmer-facing "carbon readiness platform" rather than a real exchange or registry.
+It should do the following:
 
-That keeps the prototype realistic and easier to build.
+- screen methodology fit and basic eligibility
+- collect farm, parcel, and activity data at a level useful for pre-feasibility
+- estimate baseline and project emissions and removals
+- separate gross modeled benefit from deductible or non-creditable volume
+- show evidence gaps and verifier-facing readiness blockers
+- show an indicative commercial waterfall with explicit caveats
 
-What the mock website should do:
+It should not do the following unless a later phase implements them properly:
 
-- collect farm activity data
-- estimate baseline emissions
-- estimate reductions and removals under a new scenario
-- show possible credit volume after deductions
-- explain the MRV process
-- show a simple financial estimate
+- claim that credits are issued or guaranteed
+- claim that a parcel is certified
+- replace validation or third-party verification
+- imply that one global formula works for all project types
+- imply that satellite imagery alone is sufficient evidence
+- imply that modeled benefit equals saleable credits
 
-What the mock website should not do yet:
+Every output should clearly distinguish between:
 
-- issue real credits
-- integrate with a real carbon registry
-- make legal compliance claims
-- guarantee payout values
-- claim satellite-only verification is enough
+- indicative estimate
+- methodology-aligned estimate
+- verifier-ready package
 
-## 3. Core Concept
+## 3. Real-World Reference Basis
 
-The platform represents a simplified digital MRV flow:
+The product logic should be informed by real-world carbon accounting practice, especially:
 
-- Measurement: collect farm and field data
-- Reporting: calculate emissions, removals, and projected credits
-- Verification: prepare a report and evidence checklist for third-party review
+- IPCC greenhouse gas accounting structure for agriculture, forestry, and other land use
+- jurisdiction-specific grid factors and fuel factors
+- methodology-specific rules from the selected registry or program
+- monitoring, reporting, and verification workflows used by project developers and verifiers
 
-The website is basically a mix of:
+The product should not hardcode one universal methodology. It should instead support configurable methodology packs.
 
-- onboarding tool
-- calculator
-- dashboard
+Each methodology pack should define:
+
+- eligible project types
+- eligible geographies and land uses
+- baseline rules
+- project activity definitions
+- factor library and GWP set
+- uncertainty handling
+- leakage rules
+- permanence and buffer handling
+- evidence requirements
+- monitoring frequency
+- reporting outputs
+
+Examples of methodology-aligned packs the product could support later:
+
+- cropland soil carbon improvement
+- grazing or grassland soil carbon improvement
+- enteric methane reduction
+- manure methane reduction
+- agroforestry or tree-based removals
+- rice methane reduction
+
+## 4. Product Positioning
+
+The platform should be positioned as a farmer-facing and advisor-facing operating system for carbon readiness.
+
+It is best described as a combination of:
+
+- intake workflow
+- eligibility screener
+- quantification workbench
+- MRV evidence manager
 - report generator
+- commercial pre-feasibility tool
 
-## 4. Target Users
+This positioning is much closer to real market practice than calling it a marketplace or exchange.
+
+## 5. Real-World Operating Model
+
+The system should mirror the actual sequence used in carbon project development.
+
+### Stage 1: Eligibility and Scoping
+
+Determine whether the farm, parcel, and intended project type fit a credible methodology path.
+
+Key checks:
+
+- geography and jurisdiction fit
+- land use and parcel type fit
+- legal control or land tenure evidence
+- project start date
+- history of management practices
+- double counting risk
+- overlap with other programs or environmental claims
+
+### Stage 2: Baseline Definition
+
+Establish the pre-project operating pattern and emissions or removals profile.
+
+Key checks:
+
+- baseline period length
+- number of historical seasons or years available
+- activity data completeness
+- weather or yield anomalies that may distort the baseline
+- baseline practice classification
+
+### Stage 3: Project Design
+
+Define the change being proposed and whether it is additional, measurable, and monitorable.
+
+Key checks:
+
+- project practice change start date
+- expected adoption area
+- project activity boundaries
+- implementation schedule
+- reversibility risk
+- methodology constraints on activity combinations
+
+### Stage 4: Quantification
+
+Estimate ex-ante reductions or removals using the selected methodology path.
+
+Outputs:
+
+- baseline emissions
+- baseline removals
+- project emissions
+- project removals
+- gross quantified benefit
+- deductions and conservative adjustments
+- indicative creditable volume
+
+### Stage 5: MRV Preparation
+
+Prepare the evidence and reporting structure that a project developer and verifier would need.
+
+Outputs:
+
+- parcel boundary status
+- baseline evidence completeness
+- activity evidence completeness
+- sampling status
+- unresolved assumptions
+- audit packet readiness
+
+### Stage 6: Commercial Screening
+
+Show what the project could look like commercially after the real-world waterfall.
+
+Outputs:
+
+- gross modeled volume
+- buffer withholding
+- issuance-adjusted volume
+- registry and verification costs
+- developer or platform share
+- indicative farmer payout range
+- key risk notes
+
+## 6. Target Users
 
 Primary users:
 
 - farmers
 - farm managers
 - agricultural advisors
+- project origination teams
 
 Secondary users:
 
 - carbon project developers
-- sustainability program managers
-- corporate buyers viewing example projects
+- sustainability leads
+- MRV operations teams
+- verifier-facing coordinators
 
-## 5. User Problem
+Later-stage users:
 
-Farmers usually do not know:
+- finance or procurement teams screening project economics
+- registry operations teams reviewing output packages
 
-- their current emissions profile
-- whether their current practices qualify for a carbon project
-- how credits are estimated
-- what data they must keep for verification
-- how much money would remain after deductions and fees
+## 7. Core User Problems
 
-The mock website should reduce confusion by turning a complex carbon market into a step-by-step product flow.
+Real users typically do not know:
 
-## 6. Main Website Flow
+- whether their land and practices qualify at all
+- whether they have enough historical data for a credible baseline
+- whether the scenario is additional rather than already common practice
+- whether the modeled benefit will survive deductions and conservative adjustments
+- whether they have the records to survive verification
+- whether the expected payout still makes sense after fees, reserves, and issuance delays
 
-### Step 1: Landing Page
+The platform should reduce this uncertainty by making the real project logic visible instead of hiding it behind a single number.
 
-Explain in simple language:
+## 8. Core Product Modules
 
-- what carbon credits are
-- how farming activities affect emissions and removals
-- how the platform helps estimate project readiness
+### 8.1 Farm and Legal Profile
 
-Primary call to action:
+Collect:
 
-- Start carbon assessment
+- farm entity name
+- operator name
+- country and region
+- legal ownership or land control status
+- contract structure if leased or aggregated
+- farm boundary and parcel count
+- enterprise type such as crops, mixed, livestock, or agroforestry
 
-### Step 2: Farm Onboarding
+### 8.2 Spatial and Parcel Module
 
-Collect basic profile data:
+Collect and validate:
 
-- farm name
-- country/region
-- total farm area
-- crop types
-- livestock counts
-- irrigation use
-- fuel use
-- fertilizer use
-- current practices such as tillage, cover crops, residue management
+- georeferenced parcel boundaries
+- area by parcel
+- parcel adjacency and overlap risk
+- exclusions or ineligible subareas
+- land-use history
+- sampling strata
+- water source and irrigation footprint
 
-### Step 3: Field and Practice Setup
+### 8.3 Baseline Data Module
 
-For each field, collect:
+Collect historical data by field, parcel, and year where relevant:
 
-- field name
-- area in hectares
-- soil type
-- crop history
-- current tillage system
-- fertilizer rate
-- manure use
-- cover crop status
-- grazing or livestock linkage if relevant
+- crop rotation
+- tillage system
+- fertilizer and manure inputs
+- irrigation electricity or fuel
+- diesel and machinery passes
+- livestock class and count
+- grazing intensity or grazing days
+- yield where relevant to methodology
+- residue management
+- previous tree cover or woody biomass condition
 
-### Step 4: Baseline Carbon Calculation
+### 8.4 Scenario Design Module
 
-Estimate current emissions and current sequestration.
+Define proposed changes:
 
-Outputs:
+- reduced tillage or no-till
+- cover crop adoption
+- nutrient management optimization
+- manure system changes
+- feed or herd management changes
+- rotational grazing improvements
+- agroforestry establishment
+- irrigation or energy changes if allowed by methodology
 
-- total annual emissions in tCO2e
-- total annual removals in tCO2e
-- net farm balance
-- hotspot breakdown by source
+### 8.5 Quantification Engine
 
-### Step 5: Scenario Simulation
+Calculate:
 
-Allow the user to test practice changes such as:
+- baseline emissions and removals
+- project emissions and removals
+- gross benefit
+- leakage
+- uncertainty deduction or conservative adjustment
+- permanence or buffer withholding
+- ineligible acreage or activity deductions
+- indicative creditable volume
 
-- reduced tillage
-- no-till
-- cover crops
-- optimized nitrogen use
-- manure management improvements
-- rotational grazing
-- agroforestry or tree planting
+### 8.6 MRV and Evidence Module
 
-Outputs:
+Track:
 
-- projected emissions after changes
-- projected removals after changes
-- estimated reduction/removal delta
-- estimated creditable volume before and after deductions
+- source documents
+- parcel maps
+- sampling logs
+- invoices and receipts
+- machine logs
+- livestock records
+- baseline records by year
+- methodology assumptions that still need substantiation
 
-### Step 6: MRV Readiness Review
+### 8.7 Commercial Module
 
-Show what is still needed for credibility:
+Estimate:
 
-- field boundaries
-- historical baseline records
-- activity logs
-- invoices or purchase records
-- soil tests if applicable
-- satellite review
-- third-party verifier review
+- issued quantity after deductions
+- saleable quantity after reserves or commitments
+- price scenarios by vintage or quality assumption
+- registry costs
+- validation and verification costs
+- developer share or platform fee
+- farmer net payout range
 
-### Step 7: Financial Estimate
+## 9. Functional Requirements
 
-Show a simple range, not a promise:
+### 9.1 Required Phase 1 Features
 
-- gross potential credits
-- buffer deduction
-- uncertainty deduction
-- platform fee
-- verifier cost estimate
-- net farmer payout estimate
-
-### Step 8: Mock Report
-
-Generate a simple downloadable summary with:
-
-- farm profile
-- assumptions
-- baseline vs project scenario
-- formula summary
-- risk notes
-- evidence checklist
-- projected credit range
-
-## 7. Recommended Core Pages
-
-1. Home
-2. About Carbon Credits
-3. Start Assessment
-4. Farm Profile Form
-5. Field Details Form
-6. Baseline Dashboard
-7. What-If Simulator
-8. MRV Checklist
-9. Estimated Credit Value Page
-10. Report Summary
-
-## 8. Functional Requirements
-
-The mock website should support these features.
-
-### Required MVP Features
-
-- farmer onboarding form
-- field-level data capture
-- emissions calculator
-- sequestration estimate input
+- methodology pack selector
+- farm and parcel intake
+- field-level activity capture
+- baseline period setup
 - scenario comparison
-- simple credit estimate
-- readiness score or status
-- dashboard charts
-- report summary page
+- gross and net quantified benefit view
+- deductions waterfall
+- evidence readiness tracker
+- audit packet summary
+- indicative commercial estimate
 
-### Optional Later Features
+### 9.2 Required Phase 2 Features
 
-- map upload or field drawing
-- satellite image panel
-- advisor dashboard
-- multi-farm aggregation
-- buyer-facing project listings
-- registry integration mock
-- audit trail view
+- parcel drawing or shapefile upload
+- ineligible area marking
+- stratification support for sampling
+- versioned evidence records
+- assumption approval workflow
+- multi-year monitoring view
+- exportable methodology summary
 
-## 9. Non-Functional Requirements
+### 9.3 Required Phase 3 Features
 
-- mobile-friendly layout
-- simple language for non-technical users
-- fast form flow with minimal friction
-- editable assumptions and emission factors
-- transparent calculations
-- clear disclaimers that values are estimates only
-- ability to export a summary as PDF later
+- program or registry specific calculation packs
+- aggregator support for many farms
+- verifier review state model
+- QA and exception queue
+- issuance forecast by monitoring period and vintage
 
-## 10. Core Data Model
+## 10. Non-Functional Requirements
 
-Suggested entities for the prototype:
+- transparent formulas and factor sources
+- editable but permission-controlled assumptions
+- strong unit handling across hectares, kilograms, liters, kWh, headcount, and tCO2e
+- explicit data provenance for every important output
+- audit-friendly event history
+- conservative defaults where data quality is weak
+- clear separation between modeled and verified values
+- mobile-friendly field data capture where practical
+- desktop-first workbench for quantification and MRV review
+
+## 11. Real-World Data Model
+
+Suggested core entities for the more accurate product.
 
 ### User
 
@@ -248,71 +356,204 @@ Suggested entities for the prototype:
 - name
 - email
 - role
+- organization_id
+
+### Organization
+
+- id
+- name
+- type such as farm, advisor, developer, verifier-facing team
 
 ### Farm
 
 - id
-- owner_id
+- organization_id
 - farm_name
+- country
 - region
+- farm_boundary_status
+- legal_control_status
 - total_area_ha
-- farming_type
+- farming_system
 
-### Field
+### Parcel
 
 - id
 - farm_id
-- field_name
+- parcel_name
+- geometry
 - area_ha
+- eligibility_status
+- exclusion_area_ha
+- land_use_history
+- tenure_notes
+
+### Field or Management Unit
+
+- id
+- parcel_id
+- field_name
 - soil_type
-- crop_type
+- irrigation_type
 - baseline_practice
 - project_practice
+- crop_system
+- livestock_linkage
+- stratum_id
+
+### Baseline Period
+
+- id
+- farm_id
+- methodology_pack_id
+- start_year
+- end_year
+- normalization_notes
 
 ### Activity Record
 
 - id
 - field_id
 - year
+- crop_type
+- yield
 - fertilizer_n_kg
+- organic_amendment_n_kg
 - diesel_liters
 - electricity_kwh
-- livestock_count
+- livestock_count_by_class
 - manure_system
 - tillage_type
-- cover_crop_used
+- residue_management
+- grazing_days
 
-### Carbon Result
+### Scenario
 
 - id
 - farm_id
+- methodology_pack_id
+- scenario_name
+- start_year
+- adoption_area_ha
+- assumptions_json
+
+### Methodology Pack
+
+- id
+- name
+- registry_or_program
+- version
+- project_type
+- geography_rules
+- factor_set_id
+- gwp_set
+- deduction_rules
+- evidence_requirements
+
+### Factor Set
+
+- id
+- source_name
+- source_version
+- region_scope
+- factors_json
+
+### Evidence Item
+
+- id
+- farm_id
+- parcel_id nullable
+- field_id nullable
+- category
+- source_year
+- owner
+- status
+- provenance
+- file_uri
+- reviewer_notes
+
+### Quantification Run
+
+- id
+- scenario_id
+- methodology_pack_id
+- run_type such as indicative or methodology-aligned
 - baseline_emissions_tco2e
 - baseline_removals_tco2e
 - project_emissions_tco2e
 - project_removals_tco2e
-- gross_delta_tco2e
+- gross_benefit_tco2e
 - leakage_tco2e
 - uncertainty_tco2e
+- ineligible_tco2e
 - buffer_tco2e
-- issued_credit_estimate
+- indicative_credits_tco2e
+- assumptions_hash
 
-## 11. Core Carbon Logic
+### Commercial Estimate
 
-The website should separate carbon logic into five layers:
+- id
+- quantification_run_id
+- price_per_credit
+- registry_cost
+- validation_cost
+- verification_cost
+- developer_share
+- platform_fee
+- financing_discount
+- tax_estimate
+- indicative_farmer_net
 
-1. Activity data
-2. Emission factors
-3. Baseline calculation
-4. Project scenario calculation
-5. Credit estimation after deductions
+## 12. Eligibility and Additionality Logic
 
-Important: all formulas below are prototype formulas. Real programs use region-specific methodologies and stricter verification rules.
+This is one of the most important missing pieces in most simple carbon tools.
 
-## 12. Core Formulas
+The platform should not let the user jump straight to credits without checking these gates.
 
-### 12.1 CO2e Conversion
+### 12.1 Eligibility Gates
 
-Convert different gases into a common unit.
+- parcel boundary exists and is controlled by the participant
+- land use fits the methodology pack
+- project start date is acceptable under the methodology rules
+- required baseline history is available or reasonably reconstructable
+- no obvious double counting with another carbon or environmental claim
+- no excluded land class or prohibited activity combination
+
+### 12.2 Additionality Gates
+
+Depending on methodology pack, the product should support these tests:
+
+- regulatory surplus test
+- common practice test
+- barrier test
+- investment or financial attractiveness test
+- practice adoption timing test
+
+The UI should make clear that a parcel can model benefit but still fail additionality.
+
+## 13. Quantification Architecture
+
+The product should separate carbon logic into these layers:
+
+1. methodology pack
+2. activity data
+3. factor library
+4. baseline model
+5. project model
+6. deduction layer
+7. readiness and evidence layer
+8. commercial waterfall
+
+Important: the system should support both ex-ante estimates and ex-post monitoring outputs.
+
+- ex-ante estimate = forward-looking project potential
+- ex-post quantity = monitoring-period quantity supported by evidence and verification
+
+## 14. Core Quantification Formulas
+
+All formulas below should be treated as framework-level formulas. The exact implementation should be parameterized by methodology pack and factor source.
+
+### 14.1 CO2e Conversion
 
 $$
 CO2e = CO2 + (CH4 \times GWP_{CH4}) + (N2O \times GWP_{N2O})
@@ -320,303 +561,417 @@ $$
 
 Notes:
 
-- Use configurable GWP values because standards differ.
-- Keep GWP values in a settings file or admin table.
+- GWP values must be configurable because programs can reference different assessment reports.
+- The selected GWP set must be stored on every quantification run.
 
-### 12.2 Diesel Emissions
+### 14.2 Generic Activity Emissions
+
+$$
+Emissions_i = Activity_i \times EF_i
+$$
+
+Where:
+
+- $Activity_i$ is the measured activity level
+- $EF_i$ is the approved emissions factor for the methodology pack
+
+### 14.3 Diesel Combustion
 
 $$
 Diesel\ Emissions\ (kg\ CO2e) = Diesel\ Liters \times EF_{diesel}
 $$
 
-Where:
-
-- $EF_{diesel}$ = emissions factor for diesel combustion
-
-### 12.3 Electricity Emissions
+### 14.4 Grid Electricity
 
 $$
 Electricity\ Emissions\ (kg\ CO2e) = Electricity\ kWh \times EF_{grid}
 $$
 
+Where $EF_{grid}$ must be regional and time-appropriate when possible.
+
+### 14.5 Direct Soil N2O From Nitrogen Inputs
+
+Framework form:
+
+$$
+N2O\text{-}N_{direct} = N_{applied} \times EF_1
+$$
+
+$$
+N2O_{direct} = N2O\text{-}N_{direct} \times \frac{44}{28}
+$$
+
+$$
+Emissions_{direct\ N2O} = N2O_{direct} \times GWP_{N2O}
+$$
+
+For a more complete methodology-aligned path, the system should later support:
+
+- synthetic nitrogen
+- organic amendments
+- residue returns
+- urine and dung deposition
+- mineralization from land-use change where relevant
+
+### 14.6 Indirect Soil N2O
+
+More realistic agricultural quantification should also allow indirect N2O from volatilization and leaching.
+
+Framework form:
+
+$$
+N2O\text{-}N_{indirect} = (N_{volatilized} \times EF_4) + (N_{leached} \times EF_5)
+$$
+
+Then convert to $N2O$ and to $CO2e$ using the same conversion logic.
+
+### 14.7 Enteric Methane
+
+Simplified factor form:
+
+$$
+CH4_{enteric} = \sum (Animals_c \times EF_{enteric,c})
+$$
+
+$$
+Emissions_{enteric} = CH4_{enteric} \times GWP_{CH4}
+$$
+
+The full product should differentiate by livestock class, productivity, and feeding system where methodology requires it.
+
+### 14.8 Manure Emissions
+
+Simplified factor form:
+
+$$
+Emissions_{manure} = \sum (Animals_c \times EF_{manure,c,system})
+$$
+
+Later, a more detailed manure path can support methane and nitrous oxide separately by manure management system.
+
+### 14.9 Soil Organic Carbon Change
+
+There should be two supported paths over time:
+
+- modeled SOC change
+- measured SOC stock change
+
+Measured stock-change framework:
+
+$$
+Annual\ SOC\ Change = \frac{(SOC_{t2} - SOC_{t1}) \times BD \times Depth \times Area \times (1 - CF) \times \frac{44}{12}}{Monitoring\ Interval}
+$$
+
 Where:
 
-- $EF_{grid}$ = grid emissions factor for the relevant region
+- $SOC$ = soil organic carbon concentration or stock basis used by the method
+- $BD$ = bulk density
+- $Depth$ = sampled depth
+- $Area$ = land area
+- $CF$ = coarse fragment fraction if required
 
-### 12.4 Fertilizer-Related N2O Emissions
+The exact stock-change formulation should follow the selected methodology pack and its sampling design.
 
-Simplified prototype approach:
+### 14.10 Woody Biomass or Agroforestry Change
 
-$$
-Direct\ N2O\text{-}N = N\ Applied\ (kg) \times EF_{N}
-$$
-
-$$
-Direct\ N2O = Direct\ N2O\text{-}N \times \frac{44}{28}
-$$
+Where relevant:
 
 $$
-Fertilizer\ Emissions\ (kg\ CO2e) = Direct\ N2O \times GWP_{N2O}
+Biomass\ Removal = Area \times Biomass\ Growth\ Rate \times \frac{44}{12}
 $$
 
-Where:
+This should only be used where the methodology pack explicitly allows it and the evidence path is defined.
 
-- $N\ Applied$ = kilograms of nitrogen applied
-- $EF_N$ = emission factor for nitrogen-induced N2O emissions
-
-### 12.5 Enteric Methane From Livestock
+### 14.11 Baseline Net Balance
 
 $$
-Enteric\ CH4\ (kg\ CH4) = Number\ of\ Animals \times EF_{enteric}
+Baseline\ Net = Baseline\ Emissions - Baseline\ Removals
 $$
 
-$$
-Enteric\ Emissions\ (kg\ CO2e) = Enteric\ CH4 \times GWP_{CH4}
-$$
-
-### 12.6 Manure Emissions
-
-Simplified prototype approach:
+### 14.12 Project Net Balance
 
 $$
-Manure\ Emissions\ (kg\ CO2e) = Number\ of\ Animals \times EF_{manure}
+Project\ Net = Project\ Emissions - Project\ Removals
 $$
 
-This can later be split into CH4 and N2O by manure management system.
-
-### 12.7 Soil Carbon Sequestration
-
-Simple prototype version:
+### 14.13 Gross Quantified Benefit
 
 $$
-Soil\ Carbon\ Removal\ (tCO2e) = Area\ (ha) \times Sequestration\ Rate\ (tCO2e/ha/yr)
+Gross\ Benefit = Baseline\ Net - Project\ Net
 $$
 
-The sequestration rate can depend on:
+This is the modeled climate improvement before deductions and conservative adjustments.
 
-- no-till adoption
-- cover crop adoption
-- pasture improvement
-- agroforestry
-- local soil type and climate
+### 14.14 Leakage
 
-### 12.8 Total Baseline Emissions
+Leakage should not be treated as a cosmetic flat deduction forever.
 
-$$
-Baseline\ Emissions = Diesel + Electricity + Fertilizer + Enteric + Manure + Other\ Sources
-$$
+In the accurate plan, leakage should be modeled as either:
 
-### 12.9 Total Project Emissions
+- a methodology-defined factor
+- a scenario-specific quantified adjustment
+- a conservative default where evidence is weak
+
+Framework form:
 
 $$
-Project\ Emissions = Diesel' + Electricity' + Fertilizer' + Enteric' + Manure' + Other\ Sources'
+Net\ After\ Leakage = Gross\ Benefit - Leakage
 $$
 
-### 12.10 Net Farm Carbon Balance
+### 14.15 Uncertainty or Conservative Deduction
+
+Where the methodology or data quality requires conservatism:
 
 $$
-Net\ Balance = Total\ Emissions - Total\ Removals
+Net\ After\ Uncertainty = Net\ After\ Leakage - Uncertainty\ Deduction
 $$
 
-Interpretation:
+This deduction may come from:
 
-- positive value = the farm is still a net emitter
-- negative value = removals exceed emissions
+- sampling uncertainty
+- model uncertainty
+- missing evidence
+- conservative discount rules in the chosen methodology
 
-### 12.11 Gross Climate Benefit
-
-$$
-Gross\ Benefit = (Baseline\ Emissions - Baseline\ Removals) - (Project\ Emissions - Project\ Removals)
-$$
-
-This is the starting point for potential credits.
-
-### 12.12 Estimated Issuable Credits
+### 14.16 Ineligible Activity or Area Deduction
 
 $$
-Estimated\ Credits = \max(0, Gross\ Benefit - Leakage - Uncertainty - Buffer - Ineligible\ Adjustments)
+Eligible\ Benefit = Net\ After\ Uncertainty - Ineligible\ Adjustments
 $$
 
-This formula is critical because not every ton of modeled benefit becomes a tradable credit.
+### 14.17 Buffer or Permanence Reserve
 
-### 12.13 Revenue Estimate
+For projects where reversal risk applies, some quantity may need to be withheld.
 
 $$
-Gross\ Revenue = Estimated\ Credits \times Carbon\ Price
+Indicative\ Issuable\ Quantity = \max(0, Eligible\ Benefit - Buffer\ Withholding)
+$$
+
+### 14.18 Commercial Waterfall
+
+$$
+Indicative\ Gross\ Revenue = Indicative\ Issuable\ Quantity \times Price\ Assumption
 $$
 
 $$
-Net\ Farmer\ Revenue = Gross\ Revenue - Verification\ Costs - Platform\ Fees - Other\ Deductions
+Indicative\ Net\ To\ Farmer = Gross\ Revenue - Registry\ Costs - Validation\ Costs - Verification\ Costs - Developer\ Share - Platform\ Fee - Financing\ Discount - Taxes
 $$
 
-## 13. Simple Example Calculation
+Important: this is not payout certainty. It is a scenario screen.
 
-Assume a farm has the following baseline each year:
+## 15. Example Of A More Realistic Estimate Chain
 
-- diesel emissions = 20 tCO2e
-- electricity emissions = 8 tCO2e
-- fertilizer emissions = 40 tCO2e
-- livestock and manure emissions = 52 tCO2e
-- soil carbon removals = 10 tCO2e
+The UI should present the estimate in this order:
 
-Baseline net balance:
+1. baseline net
+2. project net
+3. gross quantified benefit
+4. leakage deduction
+5. uncertainty or conservative deduction
+6. ineligible area or activity deduction
+7. buffer withholding
+8. indicative issuable quantity
+9. indicative saleable quantity
+10. indicative commercial net
+
+This sequence is much more faithful to real project development than showing one direct credit number.
+
+## 16. MRV and Evidence Requirements
+
+The MRV module should be built around the evidence categories that real project teams actually chase.
+
+### 16.1 Spatial Evidence
+
+- parcel geometry
+- boundary change history
+- exclusion zones
+- adjacency and overlap review
+- stratification map
+
+### 16.2 Baseline Evidence
+
+- historical field logs
+- purchase records
+- energy or fuel bills
+- livestock records
+- yield records where required
+- land-use history evidence
+
+### 16.3 Project Activity Evidence
+
+- planting and tillage records
+- cover crop seed purchases
+- nutrient management plans
+- grazing rotation records
+- manure handling logs
+- agroforestry establishment evidence
+
+### 16.4 Quantification Evidence
+
+- factor source version
+- sampling plan
+- soil test results
+- lab metadata
+- model assumptions
+- QA and reviewer notes
+
+### 16.5 Verification Readiness Flags
+
+- missing document
+- document exists but not linked
+- linked but not reviewed
+- reviewed with open issue
+- accepted for packet
+
+## 17. Readiness Scoring Logic
+
+The readiness score should remain an internal operating score, not a certification claim.
+
+It should combine both weighted scoring and hard gates.
+
+### 17.1 Hard Gates
+
+The farm should never be marked ready if any of these fail:
+
+- no land control evidence
+- no methodology fit
+- no baseline period defined
+- no parcel boundaries
+- no project scenario defined
+
+### 17.2 Weighted Readiness Dimensions
+
+- methodology fit
+- legal and spatial control
+- baseline data completeness
+- activity evidence completeness
+- sampling and quantification confidence
+- MRV packet completeness
+- commercial viability
+
+Example score structure:
 
 $$
-(20 + 8 + 40 + 52) - 10 = 110\ tCO2e
+Readiness\ Score = \sum (Weight_i \times Score_i)
 $$
 
-Now assume a new scenario with:
+But the UI must always show gate failures separately from the numeric score.
 
-- reduced fertilizer emissions = 28 tCO2e
-- reduced diesel emissions = 16 tCO2e
-- same livestock and manure emissions = 52 tCO2e
-- improved soil removals = 30 tCO2e
-- electricity unchanged = 8 tCO2e
+## 18. Suggested Dashboard Outputs
 
-Project net balance:
+The dashboard should expose the real structure of the project.
 
-$$
-(16 + 8 + 28 + 52) - 30 = 74\ tCO2e
-$$
+Recommended widgets:
 
-Gross benefit:
+- baseline emissions by source
+- project emissions by source
+- baseline removals by source
+- project removals by source
+- gross benefit waterfall
+- deductions waterfall
+- eligible area versus excluded area
+- indicative issuable volume
+- evidence completeness by category
+- readiness gates and blockers
+- indicative commercial waterfall
 
-$$
-110 - 74 = 36\ tCO2e
-$$
+## 19. UI Content Rules
 
-Now deduct:
+Good UI copy is critical because overclaiming is one of the biggest realism failures.
 
-- uncertainty = 4
-- buffer = 6
-- leakage = 2
+Avoid:
 
-Estimated credits:
+- you will earn credits
+- guaranteed payout
+- certified project
+- verifier approved
 
-$$
-36 - 4 - 6 - 2 = 24\ credits
-$$
+Prefer:
 
-If carbon price is $18 per credit:
+- indicative carbon benefit
+- methodology-aligned estimate
+- subject to validation, verification, and registry rules
+- evidence still required
+- commercial scenario only
 
-$$
-24 \times 18 = 432
-$$
+The interface should privilege:
 
-If fees total $82:
+- transparent assumptions
+- visible deductions
+- visible missing evidence
+- visible methodology selection
+- visible confidence level
 
-$$
-Net\ Farmer\ Revenue = 432 - 82 = 350
-$$
-
-## 14. Suggested Dashboard Widgets
-
-The mock dashboard should display:
-
-- annual emissions by source
-- annual removals by source
-- net farm balance
-- baseline vs project comparison chart
-- estimated credits after deductions
-- estimated value range
-- readiness status
-- missing evidence checklist
-
-## 15. Suggested Readiness Status Logic
-
-Use a simple prototype status rather than claiming certification.
-
-Example logic:
-
-- Ready for pilot: field data complete, baseline available, scenario defined
-- Needs more data: missing activity records or missing field history
-- Low eligibility: no additionality or low measurable benefit
-- High uncertainty: too many assumptions or missing verification evidence
-
-Possible score formula:
-
-$$
-Readiness\ Score = Data\ Completeness + Additionality\ Confidence + MRV\ Evidence\ Quality + Method\ Fit
-$$
-
-Use weighted scoring in the UI, for example out of 100, but clearly label it as an internal prototype score.
-
-## 16. UI Content Strategy
-
-The site should avoid technical overload on the first screen.
-
-Good UI pattern:
-
-- plain-language explanation first
-- calculator second
-- methodology detail third
-
-Suggested tone:
-
-- simple
-- transparent
-- practical
-- not overpromising
-
-Important copy rule:
-
-Do not say "you will earn carbon credits."
-
-Say:
-
-- estimated credit potential
-- projected carbon benefit
-- mock financial estimate
-- subject to methodology and verification
-
-## 17. Technical Approach For The Mock Website
+## 20. Technical Architecture
 
 ### Frontend
 
-A simple prototype could be built with:
-
-- React with Vite
-- Next.js if you want routing and future backend support
+- Next.js application for product shell and workbench
+- desktop-first quantification and MRV interface
+- mobile-capable field data capture where useful
 
 ### Backend
 
-For a mock, backend can be optional at first.
+For a serious prototype, backend should be included.
 
-Two paths:
+Recommended components:
 
-1. Frontend-only mock using hardcoded factors and local form state
-2. Full prototype with API and database
-
-If building a fuller prototype later, use:
-
-- FastAPI or Node.js backend
+- API service
 - PostgreSQL database
 - object storage for evidence files
+- background job runner for quantification runs and exports
 
 ### Calculation Engine
 
-Keep calculations separate from UI code.
+Keep the engine separate from UI code.
 
-Recommended structure:
+Recommended services:
 
-- input validation layer
-- emission factor config
-- calculation service
-- scenario comparison service
-- reporting service
+- methodology pack service
+- factor library service
+- eligibility rules engine
+- quantification engine
+- deductions engine
+- readiness engine
+- reporting and export service
 
-## 18. MVP Build Scope
+### Auditability
 
-If the goal is a portfolio-quality mock website, the MVP should include only these sections:
+Store on each calculation run:
 
-1. Landing page
-2. Simple farm intake form
-3. Calculator page
-4. Results dashboard
-5. MRV checklist page
-6. Report summary page
+- methodology pack id and version
+- factor set id and version
+- GWP set
+- input snapshot hash
+- run timestamp
+- reviewer notes if overridden
 
-This is enough to demonstrate the concept clearly.
+## 21. MVP Build Scope
+
+If the immediate goal is a serious, portfolio-quality product prototype, the MVP should include:
+
+1. methodology-aware intake
+2. parcel and field setup
+3. baseline and scenario workbench
+4. deductions waterfall
+5. MRV evidence desk
+6. readiness gates and score
+7. indicative commercial output
+8. report summary
+
+This is enough to demonstrate a credible real-world product direction without pretending the tool already performs full issuance-grade quantification.
+
+## 22. Recommended Next Product Modules
+
+If realism is the priority, the next modules should be built in this order:
+
+1. methodology and factor engine
+2. eligibility and additionality gates
+3. deductions waterfall and commercial waterfall
+4. evidence versioning and audit trail
+5. spatial eligibility and exclusion engine
+
+That order will close the biggest gap between a beautiful prototype and a real project development system.
 
 ## 19. Future Enhancements
 
