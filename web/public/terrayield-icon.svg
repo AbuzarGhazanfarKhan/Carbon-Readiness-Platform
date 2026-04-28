@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="terrayield-bg" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1bc49a" />
+      <stop offset="1" stop-color="#117e67" />
+    </linearGradient>
+    <radialGradient id="terrayield-glow" cx="0" cy="0" r="1" gradientTransform="translate(21 18) rotate(49.97) scale(19.5421 23.6662)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7ce5d8" stop-opacity="0.7" />
+      <stop offset="1" stop-color="#7ce5d8" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="16" fill="url(#terrayield-bg)" />
+  <rect x="6" y="6" width="52" height="52" rx="16" fill="url(#terrayield-glow)" />
+  <path
+    d="M40.596 16.5c-8.264 1.187-15.218 6.836-17.875 14.519-2.13 6.16-.744 13.122 3.67 18.042.873-4.165 2.558-7.84 5.019-10.998 3.111-3.992 7.143-7.015 13.09-10.26-4.166 3.554-7.168 7.16-9.038 10.85-1.406 2.775-2.25 5.736-2.56 8.928 7.412-.532 13.655-4.793 16.968-11.064C53.252 29.994 49.804 20.04 40.596 16.5Z"
+    fill="#08131a"
+  />
+  <path
+    d="M29.596 45.183c2.219-6.12 6.392-11.338 12.719-15.744"
+    stroke="#d8fff7"
+    stroke-width="2.75"
+    stroke-linecap="round"
+  />
+</svg>

@@ -24,6 +24,11 @@ export const metadata: Metadata = {
   title: "TerraYield | Farm Carbon Readiness",
   description:
     "A cinematic mock platform for farmers to explore carbon readiness, MRV workflows, and projected credit potential.",
+  icons: {
+    icon: "/terrayield-icon.svg",
+    shortcut: "/terrayield-icon.svg",
+    apple: "/terrayield-icon.svg",
+  },
 };
 
 export default function RootLayout({
